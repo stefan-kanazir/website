@@ -1,0 +1,26 @@
+---
+const socialLinks = [
+  {
+    label: "github",
+    src: "https://github.com/stefan-kanazir",
+  },
+  {
+    label: "linkedin",
+    src: "https://www.linkedin.com/in/stefan-kanazir/",
+  },
+  {
+    label: "twitter",
+    src: "https://x.com/StefanKanazir",
+  },
+];
+---
+
+<footer class="flex w-full items-center justify-center gap-x-4">
+  {
+    socialLinks.map(({ label, src }) => (
+      <a href={src} target="_blank" rel="noopener noreferrer">
+        {label}
+      </a>
+    ))
+  }
+</footer>
