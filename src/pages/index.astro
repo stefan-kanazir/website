@@ -1,32 +1,18 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Stefan Kanazir - Frontend Engineer</title>
-  </head>
-  <body class="mx-auto max-w-3xl px-4">
-    <header class="border-b-black-400 mb-8 flex h-16 items-center border-b">
-      <h1>Stefan Kanazir</h1>
-    </header>
-
-    <main>
-      <p>
-        I'm a Frontend Engineer with a passion for creating beautiful,
-        high-performance experiences. I have 4+ years of professional experience
-        in web development, using the latest tools and technologies. Current
-        tech stack (among other tools): React, Next.js, TypeScript, React-Query,
-        Storybook and Tailwind CSS. 👨‍💻
-      </p>
-    </main>
-
-    <footer>
-      <a></a>
-    </footer>
-  </body>
-</html>
+<BaseLayout
+  title="Stefan Kanazir - Frontend Engineer"
+  description="I'm a Frontend Engineer with a passion for creating beautiful, high-performance experiences."
+>
+  <main>
+    <p>
+      I'm a Frontend Engineer with a passion for creating beautiful,
+      high-performance experiences. I have 4+ years of professional experience
+      in web development, using the latest tools and technologies. Current tech
+      stack (among other tools): React, Next.js, TypeScript, React-Query,
+      Storybook and Tailwind CSS. 👨‍💻
+    </p>
+  </main>
+</BaseLayout>
