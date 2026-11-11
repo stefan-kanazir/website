@@ -1,27 +1,91 @@
 ---
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import { Font } from "astro:assets";
+import { EMAIL, LINKS, SITE } from "../consts";
+import "../styles/global.css";
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const {
+  title = SITE.title,
+  description = SITE.description,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL("/og.png", Astro.site);
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  url: Astro.site?.href,
+  jobTitle: SITE.jobTitle,
+  email: `mailto:${EMAIL}`,
+  worksFor: { "@type": "Organization", name: "Hellora" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Belgrade",
+    addressCountry: "RS",
+  },
+  sameAs: [LINKS.github, LINKS.linkedin, LINKS.x],
+};
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang={SITE.locale}>
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.name} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#fcfcfc"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#121212"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name}, ${SITE.jobTitle}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@StefanKanazir" />
+
+    <Font cssVariable="--font-geist" preload={[{ weight: "400" }]} />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(person)}
+    />
   </head>
-  <body class="mx-auto flex min-h-dvh max-w-3xl flex-col px-4">
-    <Header />
-    <slot />
-    <Footer />
+  <body>
+    <div class="mx-auto max-w-[38rem] px-6 pt-16 pb-12 sm:pt-28">
+      <slot />
+    </div>
   </body>
 </html>
