@@ -1,45 +1,97 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import { EMAIL, LINKS } from "../consts";
+
+const roles = [
+  {
+    company: "Aimfox",
+    href: "https://aimfox.com/",
+    years: "2023–26",
+    text: "Lead frontend engineer on this LinkedIn outreach SaaS, built at Constellation. I set up the frontend architecture and design system, then built the core product: campaign builder, workspaces, billing. It went from almost no users to 10,000+ and about $1M ARR, and was #1 Product of the Day and of the Week on Product Hunt.",
+  },
+  {
+    company: "Ananas",
+    href: "https://ananas.rs/",
+    years: "2022–23",
+    text: "One of the first in-house frontend engineers at Serbia’s largest marketplace. Became web performance lead on a 20-person frontend team.",
+  },
+];
+
+const work = [
+  "Rebuilt the frontend on a design system I set up with our designer: Storybook, every component documented, and one set of tokens shared by Figma, code and our AI tools.",
+  "Built the frontend for AI search, where recruiters describe who they need in plain words, and for text and email outreach with every reply in one inbox.",
+  "Built the frontend of our Chrome and Edge extension, which puts Hellora inside the applicant tracking system recruiters already use.",
+  "Led the performance push: audited the app front to back, then cut the heaviest page from 1.2 MB to 444 kB, removed a half-second fade on every page change, and cut production error noise by 85%.",
+  "Set up CI from scratch, led the framework migrations, and built the AI agent setup the team works with.",
+];
 ---
 
-<BaseLayout
-  title="Stefan Kanazir"
-  description="Frontend Engineer based in Belgrade, Serbia"
->
-  <main class="flex-1">
-    <section class="mt-12 flex flex-col gap-y-4">
-      <p>Senior Frontend Engineer based in Belgrade, Serbia.</p>
+<BaseLayout>
+  <header>
+    <h1 class="font-medium">Stefan Kanazir</h1>
+    <p class="text-muted">Product Engineer · Belgrade</p>
+  </header>
 
+  <main class="mt-12 space-y-12 leading-7">
+    <p>
+      I question the idea, cut it to what matters, build it end to end, and keep
+      making it faster and more reliable.
+    </p>
+
+    <Section title="Now">
       <p>
-        Currently working at
-
-        <a
-          href="https://constel.co/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-blue-500 transition-colors hover:text-blue-700"
-        >
-          Constellation
-        </a>
-
-        building all-in-one SaaS solutions for marketing automation.
+        Founding engineer at <a href="https://hellora.com/">Hellora</a>, where a
+        small team builds AI recruiting software for healthcare hiring. Most
+        days I’m in the Next.js frontend; some days the NestJS API, CI or the
+        team’s AI setup. My part so far:
       </p>
+      <ul class="space-y-2">
+        {work.map((item) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="text-muted">
+              –
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </Section>
 
+    <Section title="Before">
+      <ul class="space-y-6">
+        {roles.map(({ company, href, years, text }) => (
+          <li>
+            <p class="flex items-baseline justify-between gap-4">
+              <a href={href} class="font-medium">
+                {company}
+              </a>
+              <span class="text-sm text-muted tabular-nums">{years}</span>
+            </p>
+            <p class="mt-1 text-muted">{text}</p>
+          </li>
+        ))}
+      </ul>
+    </Section>
+
+    <Section title="Writing">
+      <a href="https://www.joberty.com/blog/inside-ananas-what-is-it-like-to-work-as-a-frontend-engineer-in-a-performance-driven-e-commerce/">
+        Inside Ananas: frontend in a performance-driven e-commerce
+      </a>
+      <span class="text-muted"> · Joberty, 2023</span>
+    </Section>
+
+    <Section title="Contact">
       <p>
-        Previously, I was one of the first in-house frontend engineers at
-
-        <a
-          href="https://ananas.rs/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-blue-500 transition-colors hover:text-blue-700"
-        >
-          Ananas Ecommerce
-        </a>
-
-        , the largest online marketplace in the Balkans, where I focused on
-        optimizing web performance.
+        Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, or find me on{" "}
+        <a href={LINKS.github}>GitHub</a>, <a href={LINKS.linkedin}>LinkedIn</a>{" "}
+        and <a href={LINKS.x}>X</a>.
       </p>
-    </section>
+      <p class="text-muted">Outside work: running, boxing, motorcycles.</p>
+    </Section>
   </main>
+
+  <footer class="mt-20 text-sm text-muted">
+    No JavaScript, no trackers. <a href={LINKS.source}>Source</a>.
+  </footer>
 </BaseLayout>
